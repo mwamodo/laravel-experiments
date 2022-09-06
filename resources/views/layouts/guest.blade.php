@@ -5,17 +5,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Experiments') }}</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
+        <wireui:scripts />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Styles -->
+        @livewireStyles
+        <style>
+            [x-cloak] { display: none !important; }
+        </style>
+        @stack('styles')
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+
+        @stack('modals')
+        @stack('scripts')
+
+        <x-dialog z-index="z-50" />
+        <x-notifications z-index="z-50" />
+
+        @livewireScripts
     </body>
 </html>
